@@ -1,0 +1,38 @@
+LOCAL RUN:
+1) Extract ZIP
+2) Open terminal in project folder
+3) python -m venv venv
+4) Windows: venv\Scripts\activate
+5) pip install -r requirements.txt
+6) python create_db.py
+7) python app.py
+8) Open: http://127.0.0.1:5000
+
+GODADDY CPANEL DEPLOY:
+1) GoDaddy -> My Products -> Web Hosting -> Manage -> cPanel Admin
+2) MySQL Database Wizard:
+   - Create database
+   - Create user
+   - Add user to database with ALL PRIVILEGES
+   - Note these 4 values: DB name, DB user, password, host (mostly localhost)
+3) cPanel -> Setup Python App:
+   - Python version: 3.10/3.11 recommended
+   - Application root: zensky
+   - Application URL: your domain
+   - Application startup file: passenger_wsgi.py
+   - Application Entry point: application
+4) Upload/extract this ZIP inside the app root folder.
+5) In Setup Python App -> Environment Variables add:
+   MYSQL_HOST=localhost
+   MYSQL_PORT=3306
+   MYSQL_USER=your cPanel db user
+   MYSQL_PASSWORD=your db password
+   MYSQL_DATABASE=your cPanel db name
+6) Click Run Pip Install / install requirements.txt.
+7) Run command in cPanel terminal:
+   python create_db.py
+8) Restart Python App.
+
+NOTE:
+- Vercel login is not needed for this GoDaddy cPanel version.
+- If your GoDaddy account has only Domain and no Web Hosting/cPanel, Python backend cannot be uploaded there. You need GoDaddy Web Hosting with Python support or Vercel login.
